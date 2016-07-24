@@ -18,6 +18,7 @@ html {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
 	background-repeat: no-repeat;
 	height: 100%;
+	width: 100%;
 	/* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
@@ -40,7 +41,7 @@ body {
 	background: #ffffff;
 	color: #333333;
 	margin: 0 auto;
-	max-width: 960px;
+	max-width: 100%;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
 	   -moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
@@ -48,7 +49,7 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	background-color: #0530cb;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -108,7 +109,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #0530cb;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
@@ -567,14 +568,16 @@ th:hover, tr:hover {
 	text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .home, .buttons .list, .buttons .create  {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
 }
 
 .ie6 .buttons input.delete, .ie6 .buttons input.edit, .ie6 .buttons input.save,
-.ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save {
+.ie6 .buttons input.home, .ie6 .buttons input.list, .ie6 .buttons input.create,
+.ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save,
+.ie7 .buttons input.home, .ie7 .buttons input.list, .ie7 .buttons input.create {
 	padding-left: 36px;
 }
 
@@ -588,6 +591,18 @@ th:hover, tr:hover {
 
 .buttons .save {
 	background-image: url(../images/skin/database_save.png);
+}
+
+.buttons .home {
+    background-image: url(../images/skin/house.png);
+}
+
+.buttons .list {
+    background-image: url(../images/skin/database_table.png);
+}
+
+.buttons .create {
+    background-image: url(../images/skin/database_add.png);
 }
 
 a.skip {

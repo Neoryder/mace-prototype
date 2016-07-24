@@ -13,7 +13,6 @@ class User implements Serializable {
 	boolean accountLocked
 	boolean passwordExpired
 
-    String userType
 
 
     static hasMany = [oAuthIDs: OAuthID]
@@ -63,9 +62,14 @@ class User implements Serializable {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+
 	}
 
 	static mapping = {
-		password column: '`password`'
+        table "mace_user"
+        id generator:'native', params:[sequence:'mace_user_seq']
+        password column: '`password`'
 	}
+
+
 }

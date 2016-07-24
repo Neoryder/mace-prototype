@@ -125,10 +125,16 @@ grails.plugin.springsecurity.authority.className = 'net.incuventure.Role'
 //grails.plugin.springsecurity.authority.groupAuthorityNameField = 'authorities'
 grails.plugin.springsecurity.useRoleGroups = false
 grails.plugin.springsecurity.securityConfigType = "Annotation"
+//grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home'
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.logout.clearAuthentication = true
-grails.plugin.springsecurity.useHttpSessionEventPublisher = truegrails.plugin.springsecurity.controllerAnnotations.staticRules = [
+grails.plugin.springsecurity.useHttpSessionEventPublisher = true
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
+	'/home':            ['IS_AUTHENTICATED_FULLY'],
+	'/home/**':         ['IS_AUTHENTICATED_FULLY'],
 	'/index':           ['permitAll'],
 	'/index.gsp':       ['permitAll'],
 	'/assets/**':       ['permitAll'],
@@ -137,22 +143,46 @@ grails.plugin.springsecurity.useHttpSessionEventPublisher = truegrails.plugin.sp
 	'/**/images/**':    ['permitAll'],
 	'/**/favicon.ico':  ['permitAll'],
     '/login/**':        ['permitAll'],
-    '/logout/**':       ['permitAll']
+    '/logout/**':       ['permitAll'],
+    '/oauth/**':        ['permitAll'],
+    '**/qrcode/**':     ['permitAll'],
+    '/qrcode/**':       ['permitAll']
 ]
+
+
+//grails.plugin.springsecurity.interceptUrlMap = [
+//        '/':                              ['permitAll'],
+//        '/index':                         ['permitAll'],
+//        '/index.gsp':                     ['permitAll'],
+//        '/**/js/**':                      ['permitAll'],
+//        '/**/css/**':                     ['permitAll'],
+//        '/**/images/**':                  ['permitAll'],
+//        '/**/favicon.ico':                ['permitAll'],
+//        '/login/**':                      ['permitAll'],
+//        '/logout/**':                     ['permitAll'],
+//        '/oauth/**':                      ['permitAll'],
+//        '**/qrcode/**':                   ['permitAll'],
+//        '/qrcode/**':                   ['permitAll']
+//]
+
+def appName = grails.util.Metadata.current.'app.name'
+def baseURL = grails.serverURL ?: "http://127.0.0.1:8080/${appName}"
 
 oauth {
     providers {
 
         google {
-            api = org.scribe.builder.api.GoogleApi20
-            key = 'oauth_google_key'
-            secret = 'oauth_google_secret'
+            api = net.incuventure.GoogleApi20
+            key = '548318438531-lvac41u2itcvulkktakbn43g1a8r9ubk.apps.googleusercontent.com'
+            secret = '39CWZF66Rtfel39cmY9g9y7Y'
             successUri = '/oauth/google/success'
             failureUri = '/oauth/google/error'
             callback = "${baseURL}/oauth/google/callback"
+//            callback = "http://127.0.0.1:8080/mace-backend/oauth/google/callback"
             scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
         }
     }
 }
+
 // Added by the Spring Security OAuth plugin:
 grails.plugin.springsecurity.oauth.domainClass = 'net.incuventure.OAuthID'

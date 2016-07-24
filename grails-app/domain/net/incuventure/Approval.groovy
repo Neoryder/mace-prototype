@@ -4,25 +4,28 @@ class Approval {
 
 
     static constraints = {
-        member
+        member nullable: false
         doctor nullable: true
         hospital nullable: true
-        laboratory nullable: true
+        laboratoryDiagnosticProcedure nullable: true
         basicTest nullable: true
-        procedure nullable: true
-        requestDate
-        status
-        statusDate
+        requestDate nullable: false
+        status nullable: false, blank: false
+        statusDate nullable: false
     }
 
 
     Member member
     Doctor doctor
     Hospital hospital
-    LaboratoryDiagnosticProcedure laboratory
+    LaboratoryDiagnosticProcedure laboratoryDiagnosticProcedure
     BasicTest basicTest
-    Procedure procedure
     Date requestDate
     String status
     String statusDate
+
+    static mapping = {
+        table "mace_approval"
+        id generator:'native', params:[sequence:'mace_approval_seq']
+    }
 }

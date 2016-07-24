@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 package net.incuventure
-
+import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.plugin.springsecurity.userdetails.GormUserDetailsService
 import grails.plugin.springsecurity.userdetails.GrailsUser
-import grails.plugin.springsecurity.SpringSecurityUtils
 import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.savedrequest.DefaultSavedRequest
-
-import net.incuventure.User
-import net.incuventure.Role
-import net.incuventure.UserRole
-import net.incuventure.OAuthID
-
 /**
  * Simple helper controller for handling OAuth authentication and integrating it
  * into Spring Security.
  */
+@Secured(['permitAll'])
 class SpringSecurityOAuthController {
 
     public static final String SPRING_SECURITY_OAUTH_TOKEN = 'springSecurityOAuthToken'
@@ -50,6 +44,7 @@ class SpringSecurityOAuthController {
      * configuration setting.
      */
     def onSuccess = {
+        println "onSuccess" + params
         // Validate the 'provider' URL. Any errors here are either misconfiguration
         // or web crawlers (or malicious users).
         if (!params.provider) {
@@ -83,6 +78,7 @@ class SpringSecurityOAuthController {
     }
 
     def onFailure = {
+        println "onFailure" + params
         authenticateAndRedirect(null, defaultTargetUrl)
     }
 

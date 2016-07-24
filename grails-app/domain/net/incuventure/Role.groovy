@@ -30,7 +30,10 @@ class Role implements Serializable {
 		authority blank: false, unique: true
 	}
 
-	static mapping = {
-		cache true
-	}
+
+    static mapping = {
+        cache true
+        table "mace_role"
+        id generator:'native', params:[sequence:'mace_role_seq']
+    }
 }
